@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shop.dm_nyd.cloudAuthService.mapper.SrvcMapper">
+	
+	<select id="selectSrvcList" parameterType="shop.dm_nyd.cloudAuthService.vo.SrvcVo" resultType="shop.dm_nyd.cloudAuthService.vo.SrvcVo">
+		select * from srvc
+		<where>
+			<if test="!(srvcNm == null or srvcNm == '')">
+				and srvc_nm = #{srvcNm}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findSrvcClbckUrl" parameterType="Integer" resultType="String">
+		select clbck_url
+		from srvc
+		where srvc_seq = #{value}
+	</select>
+	
+	
+</mapper>

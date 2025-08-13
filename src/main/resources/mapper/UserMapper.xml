@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shop.dm_nyd.cloudAuthService.mapper.UserMapper">
+
+    <select id="findUser" parameterType="String" resultType="shop.dm_nyd.cloudAuthService.vo.UserVo">
+       select 
+	       user_id, 
+	       user_nm, 
+	       picture, 
+	       role, 
+	       email, 
+	       phon_no
+	   from users
+	   where email = #{email}
+    </select>
+
+    <insert id="saveUser" parameterType="shop.dm_nyd.cloudAuthService.vo.UserVo">
+        insert into users (
+			user_id, user_nm, picture, role, email, phon_no
+		) VALUES (
+			#{userId}, #{userNm}, #{picture}, #{role}, #{email}, #{phonNo}
+		)
+		on conflict (user_id) do 
+		update
+			set 
+				user_nm = excluded.user_nm, 
+				picture = excluded.picture, 
+				role = excluded.role , 
+				email = excluded.email, 
+				phon_no = excluded.phon_no
+    </insert>
+</mapper>
